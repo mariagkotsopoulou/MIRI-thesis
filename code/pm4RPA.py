@@ -211,7 +211,7 @@ def getIndicators(clusters, activityKey):
 	##############  Prior/follow variability ############
 	print("Calculating Prior/follow variability")
 	PFv = priorFollowVar(clusters)
-	##############  plot ############
+	##############  all indicators ############
 	indicators =  pd.merge(left = indicators , right=PFv, right_on=['cluster','activity'], 
                       		left_on =['cluster','activity'], how='left')
 	indicators = indicators.fillna(0)
@@ -252,8 +252,10 @@ def main():
 	else:
 		clusterParams = {"str_ev_attr" : activityKey}
 	clusters = clusterlog(log,clusterParams)
+	##############  calculate indicators ############
 	indicators = getIndicators(clusters, activityKey)
 	print("Generating Indicator plots and saving the files")
+	##############  plot ############
 	generatePlots(indicators)
 	
 
